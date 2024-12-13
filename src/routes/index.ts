@@ -5,7 +5,7 @@ const router = Router();
 
 // Serve the main HTML file
 router.get("/", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "../../public/index.html"));
+    res.sendFile(path.join(__dirname, "../../src/public/index.html"));
 });
 
 module.exports = router;

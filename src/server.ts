@@ -1,7 +1,7 @@
 const http = require("http");
 const expressApp = require("./app"); // Rename to expressApp to avoid conflict
 const { Server } = require("socket.io");
-const handleSockets = require("./sockets");
+const handleSockets = require("./sockets/index");
 
 const PORT = 3000;
 

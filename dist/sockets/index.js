@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const userManager_1 = __importDefault(require("../utils/userManager"));
 const handleSockets = (io) => {
     io.on("connection", (socket) => {
-        console.log("A user connected");
+        console.log("*A user connected*");
         // Handle username selection
         socket.on("set username", (username) => {
             if (!userManager_1.default.addUser(socket.id, username)) {
@@ -14,6 +14,7 @@ const handleSockets = (io) => {
                 return;
             }
             socket.emit("username accepted", username);
+            console.log(`*${username} has joined the chat*`);
             io.emit("chat message", `${username} has joined the chat`);
         });
         // Handle chat messages
@@ -23,15 +24,17 @@ const handleSockets = (io) => {
                 socket.emit("username error", "You must set a username before sending messages.");
                 return;
             }
+            console.log(`${username}: ${msg}`);
             io.emit("chat message", `${username}: ${msg}`);
         });
         // Handle user disconnection
         socket.on("disconnect", () => {
             const username = userManager_1.default.removeUser(socket.id);
             if (username) {
+                console.log(`${username} has left the chat`);
                 io.emit("chat message", `${username} has left the chat`);
             }
         });
     });
 };
-exports.default = handleSockets;
+module.exports = handleSockets;

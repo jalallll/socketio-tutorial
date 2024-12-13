@@ -3,7 +3,7 @@ import UserManager from "../utils/userManager";
 
 const handleSockets = (io: Server) => {
     io.on("connection", (socket: Socket) => {
-        console.log("A user connected");
+        console.log("*A user connected*");
 
         // Handle username selection
         socket.on("set username", (username: string) => {
@@ -16,6 +16,7 @@ const handleSockets = (io: Server) => {
             }
 
             socket.emit("username accepted", username);
+            console.log(`*${username} has joined the chat*`);
             io.emit("chat message", `${username} has joined the chat`);
         });
 
@@ -29,6 +30,7 @@ const handleSockets = (io: Server) => {
                 );
                 return;
             }
+            console.log(`${username}: ${msg}`);
             io.emit("chat message", `${username}: ${msg}`);
         });
 
@@ -36,10 +38,11 @@ const handleSockets = (io: Server) => {
         socket.on("disconnect", () => {
             const username = UserManager.removeUser(socket.id);
             if (username) {
+                console.log(`${username} has left the chat`);
                 io.emit("chat message", `${username} has left the chat`);
             }
         });
     });
 };
 
-export default handleSockets;
+module.exports = handleSockets;

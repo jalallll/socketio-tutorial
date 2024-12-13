@@ -8,6 +8,6 @@ const path_1 = __importDefault(require("path"));
 const router = (0, express_1.Router)();
 // Serve the main HTML file
 router.get("/", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, "../../public/index.html"));
+    res.sendFile(path_1.default.join(__dirname, "../../src/public/index.html"));
 });
 module.exports = router;
