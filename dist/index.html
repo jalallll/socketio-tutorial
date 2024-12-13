@@ -69,6 +69,23 @@
             var form = document.getElementById("form");
             var input = document.getElementById("input");
 
+            // Prompt for username
+            let username;
+            while (!username) {
+                username = prompt("Please enter a username:");
+            }
+            socket.emit("set username", username);
+
+            socket.on("username accepted", function (username) {
+                console.log(`Welcome, ${username}`);
+            });
+
+            socket.on("username error", function (error) {
+                alert(error);
+                username = prompt("Please enter a valid or unique username:");
+                socket.emit("set username", username);
+            });
+
             form.addEventListener("submit", function (e) {
                 e.preventDefault();
                 if (input.value) {
