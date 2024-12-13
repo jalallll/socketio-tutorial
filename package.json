@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "tsc && cp src/index.html dist/ && node dist/index.js",
+    "start": "tsc && cp src/public/index.html dist/ && node dist/index.js",
     "dev": "nodemon --watch src --ext ts,html --exec \"npm run build && node dist/index.js\""
   },
   "keywords": [],
